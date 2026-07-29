@@ -24,24 +24,9 @@ width=window.innerWidth;
 height=window.innerHeight;
 
 
-canvas.width=
-width*devicePixelRatio;
+canvas.width=width;
 
-
-canvas.height=
-height*devicePixelRatio;
-
-
-
-ctx.setTransform(
-devicePixelRatio,
-0,
-0,
-devicePixelRatio,
-0,
-0
-);
-
+canvas.height=height;
 
 
 cx=width/2;
@@ -49,12 +34,10 @@ cx=width/2;
 cy=height/2;
 
 
-
 draw();
 
 
 }
-
 
 
 
