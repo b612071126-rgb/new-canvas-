@@ -33,9 +33,13 @@ height*devicePixelRatio;
 
 
 
-ctx.scale(
+ctx.setTransform(
 devicePixelRatio,
-devicePixelRatio
+0,
+0,
+devicePixelRatio,
+0,
+0
 );
 
 
@@ -141,17 +145,20 @@ function drawCompass(){
 
 
 
+let r = Math.min(width,height)*0.35;
+
+
 drawCircle(
 0,
 0,
-260
+r
 );
 
 
 drawCircle(
 0,
 0,
-230
+r*0.88
 );
 
 
@@ -213,7 +220,7 @@ ctx.stroke();
 function drawTicks(){
 
 
-let r=245;
+let r=Math.min(width,height)*0.33;
 
 
 
@@ -314,8 +321,7 @@ let angle=
 
 
 
-let r=205;
-
+let r=Math.min(width,height)*0.27;
 
 
 ctx.fillStyle=
@@ -381,7 +387,7 @@ let angle=
 
 
 
-let r=150;
+let r=Math.min(width,height)*0.20;
 
 
 
