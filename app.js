@@ -62,6 +62,28 @@ ctx.stroke();
 
 
 
+
+ctx.setTransform(1,0,0,1,0,0);
+
+ctx.beginPath();
+
+ctx.arc(
+100,
+100,
+50,
+0,
+Math.PI*2
+);
+
+ctx.strokeStyle="red";
+
+ctx.lineWidth=5;
+
+ctx.stroke();
+
+
+
+
 draw();
 
 
