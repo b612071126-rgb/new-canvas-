@@ -206,14 +206,14 @@ function drawCompass(){
 drawCircle(
 0,
 0,
-260
+190
 );
 
 
 drawCircle(
 0,
 0,
-230
+160
 );
 
 
