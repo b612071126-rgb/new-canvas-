@@ -182,14 +182,14 @@ function drawCompass(){
 drawCircle(
 0,
 0,
-120
+260
 );
 
 
 drawCircle(
 0,
 0,
-100
+230
 );
 
 
@@ -251,7 +251,7 @@ ctx.stroke();
 function drawTicks(){
 
 
-let r=110;
+let r=245;
 
 
 
@@ -352,7 +352,7 @@ let angle=
 
 
 
-let r=90;
+let r=205;
 
 
 
