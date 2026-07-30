@@ -46,6 +46,22 @@ cy=height/2;
 
 
 
+ctx.beginPath();
+
+ctx.arc(
+cx,
+cy,
+20,
+0,
+Math.PI*2
+);
+
+ctx.strokeStyle="red";
+
+ctx.stroke();
+
+
+
 draw();
 
 
