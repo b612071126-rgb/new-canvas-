@@ -89,7 +89,8 @@ draw();
 
 }
 
-
+ctx.fillRect(0,0,50,50);
+ctx.fillRect(cx-25,cy-25,50,50);
 
 
 function draw(){
@@ -103,9 +104,32 @@ height
 );
 
 
+//测试1：左上角
+
+ctx.fillStyle="red";
+
+ctx.fillRect(
+0,
+0,
+50,
+50
+);
+
+
+//测试2：中心点
+
+ctx.fillStyle="blue";
+
+ctx.fillRect(
+cx-25,
+cy-25,
+50,
+50
+);
+
+
 
 drawBackground();
-
 
 
 //
