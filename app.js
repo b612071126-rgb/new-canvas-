@@ -275,7 +275,7 @@ ctx.stroke();
 function drawTicks(){
 
 
-let r=245;
+let r=180;
 
 
 
