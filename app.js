@@ -376,7 +376,7 @@ let angle=
 
 
 
-let r=205;
+let r=150;
 
 
 
