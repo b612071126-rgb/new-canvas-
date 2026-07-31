@@ -1,6 +1,10 @@
-const canvas=document.getElementById("compass");
+const canvas =
+document.getElementById("compass");
 
-const ctx=canvas.getContext("2d");
+
+const ctx =
+canvas.getContext("2d");
+
 
 
 let width;
@@ -10,9 +14,14 @@ let cx;
 let cy;
 
 
-// 手机方向角
 
 let compassAngle=0;
+
+let currentAngle=0;
+
+
+
+let records=[];
 
 
 
@@ -24,6 +33,7 @@ width=window.innerWidth;
 height=window.innerHeight;
 
 
+
 canvas.width=
 width*devicePixelRatio;
 
@@ -33,9 +43,13 @@ height*devicePixelRatio;
 
 
 
-ctx.scale(
+ctx.setTransform(
 devicePixelRatio,
-devicePixelRatio
+0,
+0,
+devicePixelRatio,
+0,
+0
 );
 
 
@@ -46,51 +60,12 @@ cy=height/2;
 
 
 
-ctx.beginPath();
-
-ctx.arc(
-cx,
-cy,
-20,
-0,
-Math.PI*2
-);
-
-ctx.strokeStyle="red";
-
-ctx.stroke();
-
-
-
-
-ctx.setTransform(1,0,0,1,0,0);
-
-ctx.beginPath();
-
-ctx.arc(
-100,
-100,
-50,
-0,
-Math.PI*2
-);
-
-ctx.strokeStyle="red";
-
-ctx.lineWidth=5;
-
-ctx.stroke();
-
-
-
-
 draw();
 
 
 }
 
-ctx.fillRect(0,0,50,50);
-ctx.fillRect(cx-25,cy-25,50,50);
+
 
 
 function draw(){
@@ -104,42 +79,14 @@ height
 );
 
 
-//测试1：左上角
-
-ctx.fillStyle="red";
-
-ctx.fillRect(
-0,
-0,
-50,
-50
-);
-
-
-//测试2：中心点
-
-ctx.fillStyle="blue";
-
-ctx.fillRect(
-cx-25,
-cy-25,
-50,
-50
-);
-
-
 
 drawBackground();
 
 
-//
-// 保存状态
-//
 
 ctx.save();
 
 
-// 移动到中心
 
 ctx.translate(
 cx,
@@ -147,7 +94,6 @@ cy
 );
 
 
-// 旋转罗盘盘面
 
 ctx.rotate(
 -compassAngle*Math.PI/180
@@ -155,26 +101,19 @@ ctx.rotate(
 
 
 
-// 以下全部围绕中心绘制
-
-
 drawCompass();
+
 
 
 ctx.restore();
 
 
 
-
-
-// 指针固定
-
 drawPointer();
 
 
 
 }
-
 
 
 
@@ -192,6 +131,7 @@ width,
 height
 );
 
+
 }
 
 
@@ -206,16 +146,8 @@ function drawCompass(){
 drawCircle(
 0,
 0,
-190
+200
 );
-
-
-drawCircle(
-0,
-0,
-160
-);
-
 
 
 drawTicks();
@@ -227,7 +159,6 @@ drawNumbers();
 drawDirection();
 
 
-
 }
 
 
@@ -236,9 +167,7 @@ drawDirection();
 
 
 
-
 function drawCircle(x,y,r){
-
 
 
 ctx.beginPath();
@@ -254,10 +183,9 @@ Math.PI*2
 
 
 
-ctx.strokeStyle="#ddd";
+ctx.strokeStyle="white";
 
 ctx.lineWidth=2;
-
 
 ctx.stroke();
 
@@ -275,7 +203,7 @@ ctx.stroke();
 function drawTicks(){
 
 
-let r=180;
+let r=190;
 
 
 
@@ -286,17 +214,15 @@ i++
 ){
 
 
-
 let angle=
-(i-90)
-*Math.PI/180;
+(i-90)*Math.PI/180;
 
 
 
 let len=
 i%10===0?
-20:
-10;
+18:
+7;
 
 
 
@@ -327,20 +253,18 @@ Math.sin(angle)*(r-len)
 ctx.strokeStyle=
 i%10===0?
 "white":
-"#777";
+"#666";
 
 
 
 ctx.stroke();
 
 
-
 }
 
 
 
 }
-
 
 
 
@@ -354,7 +278,7 @@ function drawNumbers(){
 
 
 
-ctx.font="18px Arial";
+ctx.font="16px Arial";
 
 ctx.textAlign="center";
 
@@ -369,14 +293,11 @@ i+=10
 ){
 
 
-
 let angle=
-(i-90)
-*Math.PI/180;
+(i-90)*Math.PI/180;
 
 
-
-let r=150;
+let r=160;
 
 
 
@@ -398,13 +319,11 @@ Math.sin(angle)*r
 );
 
 
-
 }
 
 
+
 }
-
-
 
 
 
@@ -416,22 +335,19 @@ Math.sin(angle)*r
 function drawDirection(){
 
 
-
 let arr=[
 
 ["北",0],
-
 ["东",90],
-
 ["南",180],
-
 ["西",270]
 
 ];
 
 
 
-ctx.font="40px serif";
+ctx.font="35px serif";
+
 
 
 arr.forEach(item=>{
@@ -443,12 +359,12 @@ let angle=
 
 
 
-let r=70;
+let r=80;
 
 
 
 ctx.fillStyle=
-item[1]==0?
+item[1]===0?
 "red":
 "white";
 
@@ -482,7 +398,6 @@ Math.sin(angle)*r
 function drawPointer(){
 
 
-
 ctx.save();
 
 
@@ -496,10 +411,9 @@ cy
 ctx.beginPath();
 
 
-
 ctx.moveTo(
 0,
--120
+-100
 );
 
 
@@ -525,43 +439,6 @@ ctx.fill();
 
 
 
-ctx.beginPath();
-
-
-
-ctx.moveTo(
-0,
-120
-);
-
-
-
-ctx.lineTo(
--15,
-0
-);
-
-
-
-ctx.lineTo(
-15,
-0
-);
-
-
-
-ctx.closePath();
-
-
-
-ctx.fillStyle="black";
-
-
-ctx.fill();
-
-
-
-
 
 ctx.restore();
 
@@ -575,10 +452,6 @@ ctx.restore();
 
 
 
-
-
-
-// 手机方向
 
 
 window.addEventListener(
@@ -607,12 +480,115 @@ compassAngle=
 
 
 
+currentAngle=
+compassAngle;
+
+
+
+document.getElementById("angle")
+.innerHTML=
+currentAngle.toFixed(2);
+
+
+
 draw();
 
 
 }
 
 );
+
+
+
+
+
+
+
+
+
+document.getElementById("save")
+.onclick=function(){
+
+
+let now=
+new Date();
+
+
+
+records.push({
+
+time:
+now.toLocaleString(),
+
+angle:
+Number(
+currentAngle.toFixed(2)
+)
+
+});
+
+
+console.log(records);
+
+
+
+};
+
+
+
+
+
+
+
+
+
+document.getElementById("export")
+.onclick=function(){
+
+
+let data=
+JSON.stringify(
+records,
+null,
+2
+);
+
+
+
+let blob=
+new Blob(
+[data],
+{
+type:"application/json"
+}
+);
+
+
+
+let url=
+URL.createObjectURL(blob);
+
+
+
+let a=
+document.createElement("a");
+
+
+
+a.href=url;
+
+
+a.download=
+"compass_today.json";
+
+
+a.click();
+
+
+};
+
+
+
 
 
 
