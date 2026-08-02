@@ -60,10 +60,6 @@ let currentAngle=0;
 
 
 
-let records=[];
-
-
-
 function resize(){
 
 
@@ -660,26 +656,6 @@ let tip=
 document.getElementById("tip");
 
 
-tip.innerHTML=text;
-
-
-setTimeout(()=>{
-
-tip.innerHTML="";
-
-},2000);
-
-}
-
-
-
-
-
-
-
-
-
-
 
 
 window.addEventListener(
@@ -690,3 +666,4 @@ resize
 
 
 resize();
+loadData();
