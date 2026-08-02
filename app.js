@@ -1,3 +1,9 @@
+let records=[];
+
+const DB_KEY="compass_records";
+
+
+
 const canvas =
 document.getElementById("compass");
 
