@@ -203,7 +203,7 @@ ctx.stroke();
 function drawTicks(){
 
 
-let r=190;
+let r=150;
 
 
 
@@ -297,7 +297,7 @@ let angle=
 (i-90)*Math.PI/180;
 
 
-let r=160;
+let r=130;
 
 
 
