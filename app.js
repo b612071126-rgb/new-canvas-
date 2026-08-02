@@ -33,21 +33,28 @@ width=window.innerWidth;
 height=window.innerHeight;
 
 
+const dpr=devicePixelRatio;
+
 
 canvas.width=
-width*devicePixelRatio;
-
+width*dpr;
 
 canvas.height=
-height*devicePixelRatio;
+height*dpr;
 
+
+canvas.style.width=
+width+"px";
+
+canvas.style.height=
+height+"px";
 
 
 ctx.setTransform(
-devicePixelRatio,
+dpr,
 0,
 0,
-devicePixelRatio,
+dpr,
 0,
 0
 );
@@ -57,7 +64,6 @@ devicePixelRatio,
 cx=width/2;
 
 cy=height/2;
-
 
 
 draw();
