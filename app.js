@@ -6,6 +6,21 @@ const ctx =
 canvas.getContext("2d");
 
 
+let tip=
+document.getElementById("tip");
+
+
+tip.innerHTML=
+"保存数据成功（第"+records.length+"条）";
+
+
+setTimeout(()=>{
+
+tip.innerHTML="";
+
+},2000);
+
+
 
 let width;
 let height;
