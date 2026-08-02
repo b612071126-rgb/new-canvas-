@@ -1,6 +1,24 @@
 let records=[];
 
 const DB_KEY="compass_records";
+function loadData(){
+
+let data=
+localStorage.getItem(DB_KEY);
+
+
+if(data){
+
+records=
+JSON.parse(data);
+
+}
+
+
+showRecords();
+
+}
+
 
 
 
@@ -537,82 +555,124 @@ document.getElementById("save")
 .onclick=function(){
 
 
-let now=
-new Date();
+let now=new Date();
 
 
+let item={
 
-records.push({
+id:
+records.length+1,
+
 
 time:
 now.toLocaleString(),
 
+
 angle:
-Number(
-currentAngle.toFixed(2)
-)
+Number(currentAngle.toFixed(2))
+
+
+};
+
+
+records.push(item);
+
+
+
+localStorage.setItem(
+DB_KEY,
+JSON.stringify(records)
+);
+
+
+
+showRecords();
+
+
+
+showTip(
+"保存数据成功（第"+
+records.length+
+"条）"
+);
+
+
+
+};
+
+function showRecords(){
+
+
+let box=
+document.getElementById("recordList");
+
+
+if(records.length===0){
+
+box.innerHTML="暂无数据";
+
+return;
+
+}
+
+
+box.innerHTML="";
+
+
+records.forEach(item=>{
+
+
+box.innerHTML+=
+
+`
+<div>
+第${item.id}条
+
+<br>
+
+时间：
+${item.time}
+
+<br>
+
+角度：
+${item.angle}°
+
+</div>
+
+<hr>
+
+`;
+
 
 });
 
 
-console.log(records);
-
-
-
-};
-
-
-
-
-
-
-
-
-
-document.getElementById("export")
-.onclick=function(){
-
-
-let data=
-JSON.stringify(
-records,
-null,
-2
-);
-
-
-
-let blob=
-new Blob(
-[data],
-{
-type:"application/json"
 }
-);
 
 
 
-let url=
-URL.createObjectURL(blob);
+
+
+function showTip(text){
+
+let tip=
+document.getElementById("tip");
+
+
+tip.innerHTML=text;
+
+
+setTimeout(()=>{
+
+tip.innerHTML="";
+
+},2000);
+
+}
 
 
 
-let a=
-document.createElement("a");
-
-
-
-a.href=url;
-
-
-a.download=
-"compass_today.json";
-
-
-a.click();
-
-
-};
 
 
 
