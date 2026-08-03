@@ -1,27 +1,3 @@
-let records=[];
-
-const DB_KEY="compass_records";
-function loadData(){
-
-let data=
-localStorage.getItem(DB_KEY);
-
-
-if(data){
-
-records=
-JSON.parse(data);
-
-}
-
-
-showRecords();
-
-}
-
-
-
-
 const canvas =
 document.getElementById("compass");
 
@@ -30,20 +6,10 @@ const ctx =
 canvas.getContext("2d");
 
 
-let tip=
-document.getElementById("tip");
-
-
-setTimeout(()=>{
-
-tip.innerHTML="";
-
-},2000);
-
-
 
 let width;
 let height;
+
 
 let cx;
 let cy;
@@ -51,8 +17,6 @@ let cy;
 
 
 let compassAngle=0;
-
-let currentAngle=0;
 
 
 
@@ -64,21 +28,27 @@ width=window.innerWidth;
 height=window.innerHeight;
 
 
+
 const dpr=devicePixelRatio;
+
 
 
 canvas.width=
 width*dpr;
 
+
 canvas.height=
 height*dpr;
+
 
 
 canvas.style.width=
 width+"px";
 
+
 canvas.style.height=
 height+"px";
+
 
 
 ctx.setTransform(
@@ -97,10 +67,13 @@ cx=width/2;
 cy=height/2;
 
 
+
 draw();
 
 
 }
+
+
 
 
 
@@ -159,7 +132,9 @@ drawPointer();
 
 function drawBackground(){
 
+
 ctx.fillStyle="#111";
+
 
 ctx.fillRect(
 0,
@@ -187,17 +162,20 @@ drawCircle(
 );
 
 
+
 drawTicks();
+
 
 
 drawNumbers();
 
 
+
 drawDirection();
 
 
-}
 
+}
 
 
 
@@ -224,12 +202,11 @@ ctx.strokeStyle="white";
 
 ctx.lineWidth=2;
 
+
 ctx.stroke();
 
 
 }
-
-
 
 
 
@@ -297,12 +274,11 @@ i%10===0?
 ctx.stroke();
 
 
-}
-
-
 
 }
 
+
+}
 
 
 
@@ -316,6 +292,7 @@ function drawNumbers(){
 
 
 ctx.font="16px Arial";
+
 
 ctx.textAlign="center";
 
@@ -356,12 +333,12 @@ Math.sin(angle)*r
 );
 
 
-}
-
-
 
 }
 
+
+
+}
 
 
 
@@ -375,8 +352,11 @@ function drawDirection(){
 let arr=[
 
 ["北",0],
+
 ["东",90],
+
 ["南",180],
+
 ["西",270]
 
 ];
@@ -391,8 +371,7 @@ arr.forEach(item=>{
 
 
 let angle=
-(item[1]-90)
-*Math.PI/180;
+(item[1]-90)*Math.PI/180;
 
 
 
@@ -431,11 +410,12 @@ Math.sin(angle)*r
 
 
 
-
 function drawPointer(){
 
 
+
 ctx.save();
+
 
 
 ctx.translate(
@@ -446,6 +426,7 @@ cy
 
 
 ctx.beginPath();
+
 
 
 ctx.moveTo(
@@ -472,17 +453,15 @@ ctx.closePath();
 
 ctx.fillStyle="red";
 
-ctx.fill();
 
+ctx.fill();
 
 
 
 ctx.restore();
 
 
-
 }
-
 
 
 
@@ -517,14 +496,9 @@ compassAngle=
 
 
 
-currentAngle=
-compassAngle;
-
-
-
 document.getElementById("angle")
 .innerHTML=
-currentAngle.toFixed(2);
+compassAngle.toFixed(2);
 
 
 
@@ -540,127 +514,11 @@ draw();
 
 
 
-
-
-
-document.getElementById("save")
-.onclick=function(){
-
-
-let now=new Date();
-
-
-let item={
-
-id:
-records.length+1,
-
-
-time:
-now.toLocaleString(),
-
-
-angle:
-Number(currentAngle.toFixed(2))
-
-
-};
-
-
-records.push(item);
-
-
-
-localStorage.setItem(
-DB_KEY,
-JSON.stringify(records)
-);
-
-
-
-showRecords();
-
-
-
-showTip(
-"保存数据成功（第"+
-records.length+
-"条）"
-);
-
-
-
-};
-
-function showRecords(){
-
-
-let box=
-document.getElementById("recordList");
-
-
-if(records.length===0){
-
-box.innerHTML="暂无数据";
-
-return;
-
-}
-
-
-box.innerHTML="";
-
-
-records.forEach(item=>{
-
-
-box.innerHTML+=
-
-`
-<div>
-第${item.id}条
-
-<br>
-
-时间：
-${item.time}
-
-<br>
-
-角度：
-${item.angle}°
-
-</div>
-
-<hr>
-
-`;
-
-
-});
-
-
-}
-
-
-
-
-
-function showTip(text){
-
-let tip=
-document.getElementById("tip");
-
-
-
-
 window.addEventListener(
 "resize",
 resize
 );
 
 
-
-loadData();
 
 resize();
