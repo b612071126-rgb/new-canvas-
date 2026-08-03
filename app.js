@@ -34,10 +34,6 @@ let tip=
 document.getElementById("tip");
 
 
-tip.innerHTML=
-"保存数据成功（第"+records.length+"条）";
-
-
 setTimeout(()=>{
 
 tip.innerHTML="";
@@ -665,5 +661,6 @@ resize
 
 
 
-resize();
 loadData();
+
+resize();
