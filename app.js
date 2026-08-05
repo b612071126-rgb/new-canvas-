@@ -112,7 +112,7 @@ ctx.rotate(
 
 
 drawCompass();
-
+drawCross();
 
 
 ctx.restore();
@@ -498,9 +498,7 @@ compassAngle=
 
 document.getElementById("angle")
 .innerHTML=
-compassAngle.toFixed(2);
-
-
+"方向："+compassAngle.toFixed(2)+"°";
 
 draw();
 
@@ -522,3 +520,69 @@ resize
 
 
 resize();
+
+
+function drawCross(){
+
+
+ctx.strokeStyle="red";
+
+ctx.lineWidth=1;
+
+
+
+ctx.beginPath();
+
+ctx.moveTo(-160,0);
+
+ctx.lineTo(160,0);
+
+ctx.stroke();
+
+
+
+ctx.beginPath();
+
+ctx.moveTo(0,-160);
+
+ctx.lineTo(0,160);
+
+ctx.stroke();
+
+
+
+}
+
+document.getElementById("save")
+.onclick=function(){
+
+alert("保存功能");
+
+}
+
+
+
+document.getElementById("lock")
+.onclick=function(){
+
+alert("锁定功能");
+
+}
+
+
+
+document.getElementById("calibrate")
+.onclick=function(){
+
+alert("校准功能");
+
+}
+
+
+
+document.getElementById("export")
+.onclick=function(){
+
+alert("导出功能");
+
+}
