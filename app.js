@@ -1,3 +1,22 @@
+let records=[];
+
+const DB_KEY="compass_records";
+
+function loadData(){
+
+let data=
+localStorage.getItem(DB_KEY);
+
+
+if(data){
+
+records=JSON.parse(data);
+
+}
+
+}
+
+
 const canvas =
 document.getElementById("compass");
 
@@ -16,7 +35,18 @@ let cy;
 
 
 
-let compassAngle=0;
+let currentAngle=0;
+
+
+// 锁定状态
+
+let isLocked=false;
+
+
+// 锁定时保存的角度
+
+let lockAngle=0;
+
 
 
 
@@ -105,10 +135,26 @@ cy
 
 
 
-ctx.rotate(
--compassAngle*Math.PI/180
-);
+let showAngle;
 
+
+if(isLocked){
+
+showAngle=lockAngle;
+
+}
+
+else{
+
+showAngle=currentAngle;
+
+}
+
+
+
+ctx.rotate(
+-showAngle*Math.PI/180
+);
 
 
 drawCompass();
@@ -553,36 +599,186 @@ ctx.stroke();
 
 }
 
+// 保存按钮
+
 document.getElementById("save")
 .onclick=function(){
 
-alert("保存功能");
 
-}
+let item={
+
+id:
+records.length+1,
 
 
+time:
+new Date().toLocaleString(),
+
+
+angle:
+Number(currentAngle.toFixed(2))
+
+
+};
+
+
+
+records.push(item);
+
+
+
+localStorage.setItem(
+
+DB_KEY,
+
+JSON.stringify(records)
+
+);
+
+
+
+alert(
+"保存成功，第"+
+records.length+
+"条"
+);
+
+
+};
+
+
+
+
+
+// 锁定按钮（暂时测试）
 
 document.getElementById("lock")
 .onclick=function(){
 
-alert("锁定功能");
+
+
+if(!isLocked){
+
+
+// 第一次点击：锁定
+
+isLocked=true;
+
+
+lockAngle=currentAngle;
+
+
+this.innerHTML="解除锁定";
+
+
+alert(
+"罗盘已锁定："+
+
+lockAngle.toFixed(2)
+
++"°"
+);
+
+
+
+}
+
+else{
+
+
+// 第二次点击：解除
+
+isLocked=false;
+
+
+this.innerHTML="锁定";
+
+
+alert(
+"已恢复实时方向"
+);
+
+
 
 }
 
 
+
+draw();
+
+
+};
+
+
+
+
+
+// 校准按钮（暂时测试）
 
 document.getElementById("calibrate")
 .onclick=function(){
 
-alert("校准功能");
+alert(
+"校准功能开发中"
+);
 
-}
+};
 
 
+
+
+
+
+// 导出按钮
 
 document.getElementById("export")
 .onclick=function(){
 
-alert("导出功能");
 
+
+let data=
+
+JSON.stringify(
+records,
+null,
+2
+);
+
+
+
+let blob=
+
+new Blob(
+[data],
+{
+type:"application/json"
 }
+);
+
+
+
+let url=
+
+URL.createObjectURL(blob);
+
+
+
+let a=document.createElement("a");
+
+
+a.href=url;
+
+
+a.download=
+"compass_records.json";
+
+
+a.click();
+
+
+
+URL.revokeObjectURL(url);
+
+
+
+};
